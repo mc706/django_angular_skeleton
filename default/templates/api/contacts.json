@@ -1,0 +1,4 @@
+[{% for contact in contacts %}
+    {% include "api/contact.json" with contact=contact %}{%if not forloop.last%},{%endif%}
+{% endfor %}
+]

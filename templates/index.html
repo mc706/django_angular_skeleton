@@ -1,0 +1,106 @@
+<!DOCTYPE html >
+<html ng-app="conect">
+<head>
+    <title>CONECT {% block title %}{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet" media=screen>
+    <link href="{{ STATIC_URL }}css/angular-desktop.css" rel="stylesheet" media=screen>
+    <link href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel=stylesheet media=screen>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="{{ STATIC_URL }}js/common.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+    <div class="box">
+        <div class="column col-sm-2 hidden-xs sidebar">
+            <ul class="nav">
+                <li><a href="#/events/">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    Events
+                </a></li>
+                <li><a href="">
+                    <span class="glyphicon glyphicon-check"></span>
+                    Tasks
+                </a></li>
+                <li><a href="#/topics/">
+                    <span class="glyphicon glyphicon-list-alt"></span>
+                    Topics
+                </a></li>
+                <li><a href="">
+                    <span class="glyphicon glyphicon-folder-open"></span>
+                    Threads
+                </a></li>
+                <li><a href="">
+                    <span class="glyphicon glyphicon-user"></span>
+                    Contacts
+                </a></li>
+            </ul>
+            <footer class="text-center">
+                <p class=text-center><span class='glyphicon glyphicon-copyright-mark'> </span> Ryan McDevitt {% now "Y" %}</p>
+            </footer>
+        </div>
+        <div class="column col-sm-10 col-xs-12 main">
+            <nav class="navbar navbar-static-top navbar-green">
+                <div class=navbar-header>
+                    <a class="navbar-brand" href="/" title="Centralized Organizer for Notes Events Connections and Tasks">
+                        <img src="{{ STATIC_URL }}img/conect_icon_retina_v5.png" style="height: 20px;">
+                        CONECT
+                        <span class=badge style='font-size: 0.5em'>Beta</span>
+                    </a>
+                    <a type="button" class="btn btn-default visible-xs  pull-right" id="toggle-sidebar" onclick="toggleSidebar()">
+                        <span id='toggle-arrow' class="glyphicon glyphicon-chevron-right"></span>
+                      </a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="collapse navbar-collapse navbar-responsive-collapse">
+                    <ul class="nav navbar-nav">
+                    </ul>
+                    <ul class="nav navbar-nav pull-right">
+                        {% if user.is_authenticated %}
+                        <li class='dropdown'>
+                            <a class=dropdown-toggle data-toggle=dropdown href=#>
+                            {% if user.name %}{{ user.name }}{% else %}{{ user.username }}{% endif %}
+                                <span class=caret></span>
+                            </a>
+                            <ul class=dropdown-menu>
+                                {% if user.is_staff %}
+                                    <li><a href="/admin/">
+                                        <span class="glyphicon glyphicon-wrench"></span>
+                                        Admin Panel
+                                    </a></li>
+                                {% endif %}
+                                <li><a href='/passwd/change/'>
+                                    <span class='glyphicon glyphicon-cog'></span>
+                                    Change Your Password
+                                </a></li>
+                                <li><a href='/accounts/logout/'>
+                                    <span class='glyphicon glyphicon-log-out'></span>
+                                    Log Out
+                                </a></li>
+                            </ul>
+                        </li>
+                        {% else %}
+                            <li class=pull-right><a href="/accounts/login/">
+                                <span class="glyphicon glyphicon-user"></span>
+                                Log In
+                            </a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+            <div class="view-window" ng-view></div>
+        </div>
+        </div>
+    </div>
+    <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+    <script src="{{ STATIC_URL }}js/angular.js"></script>
+    <script src="{{ STATIC_URL }}js/angular-cookie.min.js"></script>
+    <script src="{{ STATIC_URL }}app/app.js"></script>
+    <script src="{{ STATIC_URL }}app/services/services.js"></script>
+    <script src="{{ STATIC_URL }}app/controllers/controllers.js"></script>
+    <script src="{{ STATIC_URL }}js/utils.js"></script>
+
+
+</body>
+</html>

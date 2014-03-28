@@ -1,0 +1,13 @@
+{
+    "id":{{contact.id}},
+    "name":"{{contact.name}}",
+    "organization":"{{contact.organization}}",
+    "title":"{{contact.title}}",
+    "email":"{{contact.email}}",
+    "phones":[{% for number in contact.phones%}
+        {
+            "label":"{{number.label}}",
+            "number":"{{number.number}}"
+        }{%if not forloop.last%},{%endif%}
+    {%endfor%}]
+}
